@@ -7,7 +7,7 @@ import os
 # %%
 # global variables
 # connect Minio (bucket = senser folder, object = file)
-minioClient = Minio('172.24.48.1:9000', # 文件服務地址 本機ip+port:9000
+minioClient = Minio('x.x.x.x:9000', # 文件服務地址 本機ip+port:9000
                     access_key='minioadmin', # 用戶名
                     secret_key='minioadmin', # 密碼
                     secure=False) # 設置': True代表啟用HTTPS 
@@ -94,9 +94,9 @@ def get_remove_bucket(bucket_name: str) -> bool:
 def upload_object(bucket_name: str, object_name: str, file_path: str) -> bool:
   '''
   params:
-    bucket_name: bucket名稱 ex. test1device
-    object_name: object名稱 ex. test.npz
-    file_path: 本機文件的路徑+文件名稱 ex. C:\Minio\test1device\20220909\test.npz
+    bucket_name: bucket名稱 ex. test1
+    object_name: object名稱 ex. oct.npz
+    file_path: 本機文件的路徑+文件名稱 ex. C:\Minio\test1\20220909\oct.npz
   '''
   global minioClient
   try:
@@ -111,9 +111,9 @@ def upload_object(bucket_name: str, object_name: str, file_path: str) -> bool:
 def upload_folder(local_path: str, bucket_name: str, minio_path: str=''):
   '''
   params:
-    local_path: 本機上傳文件夾位置 ex. C:\Minio\test1device
-    bucket_name: bucket名稱 ex. test1device
-    minio_path: 保存在minio的路徑,自動添加在bucket下 ex. test -> test1device/test 
+    local_path: 本機上傳文件夾位置 ex. C:\Minio\test1
+    bucket_name: bucket名稱 ex. test1
+    minio_path: 保存在minio的路徑,自動添加在bucket下 ex. test -> test1/test 
                 default: '' (與local_path相同)
   '''
   global minioClient
@@ -135,7 +135,7 @@ def upload_folder(local_path: str, bucket_name: str, minio_path: str=''):
 def get_object_list(bucket_name: str, prefix: str=None) -> list:
   '''
   params:
-    bucket_name: bucket名稱 ex. test1device
+    bucket_name: bucket名稱 ex. test1
     prefix: folder path ex. 20220909  
             default: None (get all object)
   '''
@@ -162,8 +162,8 @@ def get_object_list(bucket_name: str, prefix: str=None) -> list:
 def download_object(bucket_name: str, object_name: str, local_file_path: str) -> dict:
   '''
   params:
-    bucket_name: bucket名稱 ex. test1device
-    object_name: object名稱 ex. 20220909/20220913100440.npz
+    bucket_name: bucket名稱 ex. test1
+    object_name: object名稱 ex. 20220909/oct.npz
     local_folder_path: 本機下載位置路徑 ex. C:\Minio\20220909 
   '''
   global minioClient
@@ -187,7 +187,7 @@ def download_object(bucket_name: str, object_name: str, local_file_path: str) ->
 def download_folder(bucket_name: str, local_folder_path: str, folder_name: str=None) -> dict:
   '''
   params:
-    bucket_name: bucket名稱 ex. test1device
+    bucket_name: bucket名稱 ex. test1
     local_folder_path: 本機下載位置路徑(會自動建立對應文件夾) ex. C:\Minio\20220909 
     folder_name: 下載文件夾 ex. 20220909
                  default: None
@@ -204,8 +204,8 @@ def download_folder(bucket_name: str, local_folder_path: str, folder_name: str=N
 def del_object(bucket_name: str, object_name: str) -> bool:
   '''
   params:
-    sensor_name: 刪除bucket名稱 ex. test1device
-    object_name: 文件路徑+名稱 ex. 20220909/20220913100440.npz
+    sensor_name: 刪除bucket名稱 ex. test1
+    object_name: 文件路徑+名稱 ex. 20220909/oct.npz
   '''
   global minioClient
   try:
@@ -221,7 +221,7 @@ def del_object(bucket_name: str, object_name: str) -> bool:
 def del_folder(bucket_name: str, folder_name: str=None):
   '''
   params:
-    bucket_name: 刪除bucket名稱 ex. test1device
+    bucket_name: 刪除bucket名稱 ex. test1
     folder_name: 文件路徑 ex. 20220909
                  default: None
   ''' 
@@ -235,7 +235,7 @@ if __name__ == '__main__':
   # 新增bucket
   create_bucket('mybucket')
   create_bucket('20220910')
-  create_bucket('test1device')
+  create_bucket('test1')
   
   # 查看bucket/object
   # print(get_bucket_list())
