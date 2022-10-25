@@ -8,4 +8,4 @@
 1. Create/Add - bucket/object
 2. Delete - bucket/object
 3. Upload - file/folder
-4. Doenload - file/folder
+4. Download - file/folder
